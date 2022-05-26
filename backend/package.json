@@ -1,0 +1,27 @@
+{
+  "name": "newdo_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "Anass knene",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "apollo-server": "^3.7.0",
+    "apollo-server-express": "^3.7.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "graphql": "^16.5.0",
+    "graphql-tools": "^8.2.9",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.3"
+  }
+}

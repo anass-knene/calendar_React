@@ -1,0 +1,195 @@
+.Container {
+  // border: 1px solid red;
+  width: 80vw;
+  height: 100vh;
+
+  .HeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 100px 0px 100px;
+    span {
+      color: #00a2ff;
+    }
+    .addTodoBtn {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      margin: 10px;
+      cursor: pointer;
+      background: rgb(164, 101, 101);
+      background: linear-gradient(
+        162deg,
+        rgb(63, 163, 206) 33%,
+        rgb(172, 206, 213) 62%
+      );
+      font-weight: bold;
+      font-size: 20px;
+      &:hover {
+        background: rgb(164, 101, 101);
+        background: linear-gradient(
+          162deg,
+          rgb(227, 233, 235) 62%,
+          rgb(209, 222, 227) 33%
+        );
+      }
+    }
+  }
+  .degreesDiv {
+    margin-top: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    width: 35vh;
+    display: flex;
+    .DegreesIcon {
+      margin: 25px 10px 0px 50px;
+      width: fit-content;
+      height: fit-content;
+      border: 1px solid rgb(255, 255, 255);
+    }
+  }
+  .daysDiv {
+    width: 100%;
+    display: flex;
+
+    p {
+      display: flex;
+
+      flex-direction: column;
+      border: 1px solid rgb(0, 0, 0);
+      width: calc(100% / 7);
+      align-items: center;
+      padding: 30px 0px;
+    }
+  }
+}
+.react-calendar {
+  //  سطر الايام
+  width: 100%;
+  max-width: 100%;
+  background-color: #00a2ff44;
+  color: #222;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  text-align: center;
+  padding-bottom: 30px;
+  border-radius: 30px;
+}
+.react-calendar__navigation button {
+  // سطر اختيار السنين والاشهر
+  min-width: 44px;
+  background: none;
+  font-size: 30px;
+  margin: 8px;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #f8f8fa;
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+.react-calendar__navigation button[disabled] {
+  background-color: #f0f0f0;
+}
+abbr {
+  font-weight: bold;
+
+  text-transform: uppercase;
+}
+.react-calendar__tile {
+  height: 80px;
+}
+abbr[title] {
+  text-decoration: none;
+  color: #00a2ff;
+}
+.react-calendar__tile {
+  background-color: rgb(255, 255, 255);
+
+  border: none;
+}
+abbr {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.react-calendar__month-view__days__day--weekend {
+  // weekend days
+  color: #818080;
+}
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em 0em 0.5em;
+}
+.react-calendar__navigation {
+  // ديف اختيار الاشهر والسنين
+  box-shadow: 0px -20px 0px 0px #00a2ff;
+  border-radius: 30px;
+
+  margin-top: 20px;
+  padding: 0.5em 0.5em 1.5em;
+  button {
+    padding: 10px;
+    color: black;
+    border: 1px solid #00a2ff;
+    box-shadow: 0px 0px 5px #00a2ff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #f8f8fa;
+  color: #6f48eb;
+  border-radius: 6px;
+}
+.react-calendar__tile--now {
+  background: #6f48eb33;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #6f48eb;
+}
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #6f48eb33;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #6f48eb;
+}
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #f8f8fa;
+}
+.react-calendar__tile--active {
+  background: #6f48eb;
+  border-radius: 6px;
+  font-weight: bold;
+  color: white;
+}
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #00a2ff;
+  color: white;
+}
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #f8f8fa;
+}
+.react-calendar__tile--range {
+  background: #f8f8fa;
+  color: #6f48eb;
+  border-radius: 0;
+}
+.react-calendar__tile--rangeStart {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background: #00a2ff;
+  color: white;
+}
+.react-calendar__tile--rangeEnd {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background: #00a2ff;
+  color: white;
+}
