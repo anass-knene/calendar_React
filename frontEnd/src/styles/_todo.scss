@@ -1,49 +1,24 @@
 .Container {
-  // border: 1px solid red;
   width: 80vw;
   height: 100vh;
 
   .HeaderContainer {
     display: flex;
     justify-content: space-between;
-    margin: 0px 100px 0px 100px;
+
     span {
       color: #00a2ff;
     }
-    .addTodoBtn {
-      height: 60px;
-      width: 60px;
-      border-radius: 50%;
-      margin: 10px;
-      cursor: pointer;
-      background: rgb(164, 101, 101);
-      background: linear-gradient(
-        162deg,
-        rgb(63, 163, 206) 33%,
-        rgb(172, 206, 213) 62%
-      );
-      font-weight: bold;
-      font-size: 20px;
-      &:hover {
-        background: rgb(164, 101, 101);
-        background: linear-gradient(
-          162deg,
-          rgb(227, 233, 235) 62%,
-          rgb(209, 222, 227) 33%
-        );
-      }
-    }
   }
   .degreesDiv {
-    margin-top: 10px;
-    border: 1px solid rgb(255, 255, 255);
-    width: 35vh;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     .DegreesIcon {
-      margin: 25px 10px 0px 50px;
-      width: fit-content;
-      height: fit-content;
-      border: 1px solid rgb(255, 255, 255);
+      display: flex;
+    }
+    .react-clock {
+      margin: -100px 50px 0px 0px;
     }
   }
   .daysDiv {

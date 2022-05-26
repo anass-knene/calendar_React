@@ -4,14 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 function Container({ children }) {
   const [user, setUser] = useState({});
+  const [userLocation, setUserLocation] = useState({});
   const [isUserLogin, setIsUserLogin] = useState(false);
+  const [userWeatherData, setUserWeatherData] = useState([]);
   const navigate = useNavigate();
-
-  fetch(
-    ` https://api.openweathermap.org/data/2.5/weather?q=damascus&appid=${process.env.REACT_APP_WEATHER_KEY}&units=metric`
-  )
-    .then((response) => response.json())
-    .then((data) => console.log(data, "hello"));
 
   useEffect(() => {
     fetch("https:localhost:5000/graphql", {
@@ -44,7 +40,18 @@ function Container({ children }) {
       });
   }, []);
   return (
-    <MyContext.Provider value={{ user, setUser, isUserLogin, setIsUserLogin }}>
+    <MyContext.Provider
+      value={{
+        user,
+        setUser,
+        isUserLogin,
+        setIsUserLogin,
+        userLocation,
+        setUserLocation,
+        userWeatherData,
+        setUserWeatherData,
+      }}
+    >
       {children}
     </MyContext.Provider>
   );
