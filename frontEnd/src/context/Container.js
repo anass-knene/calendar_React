@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 function Container({ children }) {
   const [user, setUser] = useState({});
-  const [userLocation, setUserLocation] = useState({});
+
   const [isUserLogin, setIsUserLogin] = useState(false);
-  const [userWeatherData, setUserWeatherData] = useState([]);
+  const [userWeatherData, setUserWeatherData] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,8 +46,6 @@ function Container({ children }) {
         setUser,
         isUserLogin,
         setIsUserLogin,
-        userLocation,
-        setUserLocation,
         userWeatherData,
         setUserWeatherData,
       }}
