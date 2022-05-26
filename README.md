@@ -1,6 +1,6 @@
 # newdo
 
-![Getting Started](./mockup/newdo.png)
+![Getting Started](./frontEnd/mockup/newdo.png)
 
 ## Create To Do Project
 
