@@ -17,23 +17,23 @@ function Login() {
 
   const [loginUser, { data1, loading1, error1 }] = useMutation(LOGIN_USER);
   const [addUser, { data, loading, error }] = useMutation(CREATE_USER);
-  const locationUser = () => {
-    if (!navigator.geolocation) {
-      console.log("Geolocation API not supported by this browser.");
-    } else {
-      console.log("Checking location...");
-      navigator.geolocation.getCurrentPosition(success, error);
-      console.log(success);
-    }
+  // const locationUser = () => {
+  //   if (!navigator.geolocation) {
+  //     console.log("Geolocation API not supported by this browser.");
+  //   } else {
+  //     console.log("Checking location...");
+  //     navigator.geolocation.getCurrentPosition(success, error);
+  //     console.log(success);
+  //   }
 
-    function success(position) {
-      setUserLocation({
-        Latitude: position.coords.latitude,
-        Longitude: position.coords.longitude,
-      });
-      // console.log(position.coords.latitude);
-    }
-  };
+  //   function success(position) {
+  //     setUserLocation({
+  //       Latitude: position.coords.latitude,
+  //       Longitude: position.coords.longitude,
+  //     });
+  //     // console.log(position.coords.latitude);
+  //   }
+  // };
 
   const addUserForm = (e) => {
     e.preventDefault();
@@ -82,13 +82,13 @@ function Login() {
         });
         setIsUserLogin(true);
         navigate("/todo");
-        fetch(
-          ` https://api.openweathermap.org/data/2.5/weather?lat=${userLocation.Latitude}&lon=${userLocation.Longitude}&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
-        )
-          .then((response) => response.json())
-          .then((data) =>
-            data ? setUserWeatherData(data) : console.log(data)
-          );
+        // fetch(
+        //   ` https://api.openweathermap.org/data/2.5/weather?lat=${userLocation.Latitude}&lon=${userLocation.Longitude}&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
+        // )
+        //   .then((response) => response.json())
+        //   .then((data) =>
+        //     data ? setUserWeatherData(data) : console.log(data)
+        //   );
       }
     });
   };
@@ -138,7 +138,7 @@ function Login() {
             placeholder="Password"
             required=""
           />
-          <input type="submit" value="Login" onClick={locationUser} />
+          <input type="submit" value="Login" /* onClick={locationUser} */ />
         </form>
       </div>
     </div>

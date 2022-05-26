@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
 import { CalendarClock } from "./CalendarClock";
 import "react-clock/dist/Clock.css";
 
 function ToDo() {
-  const { user, isUserLogin, userWeatherData } = useContext(MyContext);
+  const { user, isUserLogin, userWeatherData, setUserWeatherData } =
+    useContext(MyContext);
   const [value, onChange] = useState(new Date());
 
   let today = new Date().getHours();
@@ -27,6 +28,29 @@ function ToDo() {
     time = "Night";
   }
 
+  function getLocation() {
+    if (!navigator.geolocation) {
+      console.log("Geolocation API not supported by this browser.");
+    } else {
+      console.log("Checking location...");
+      navigator.geolocation.getCurrentPosition(success, error);
+      console.log(success);
+    }
+    function error() {
+      console.log("Geolocation error!");
+    }
+    function success(position) {
+      fetch(
+        ` https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
+      )
+        .then((response) => response.json())
+        .then((data) => (data ? setUserWeatherData(data) : console.log(data)));
+    }
+  }
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return (
     <div className="Container">
       <div className="HeaderContainer">
@@ -38,22 +62,24 @@ function ToDo() {
             ""
           )}
         </h1>
-        {userWeatherData && (
+        {userWeatherData ? (
           <img
             src={`http://openweathermap.org/img/wn/${userWeatherData.weather[0].icon}@2x.png`}
-            alt=""
+            alt="img"
           />
+        ) : (
+          <h1>...loading</h1>
         )}
       </div>
       <div className="degreesDiv">
         <div className="DegreesIcon">
           <img
-            src={`http://openweathermap.org/img/wn/${userWeatherData.weather[0].icon}@2x.png`}
+            src={`http://openweathermap.org/img/wn/${userWeatherData?.weather[0].icon}@2x.png`}
             alt=""
           />
           <div>
-            <h2>{parseInt(userWeatherData.main.temp)} C</h2>
-            <h4>{userWeatherData.name}</h4>
+            <h2>{parseInt(userWeatherData?.main.temp)} C</h2>
+            <h4>{userWeatherData?.name}</h4>
           </div>
         </div>
 
@@ -68,39 +94,8 @@ function ToDo() {
       <div className="daysDiv">
         <Calendar onChange={onChange} value={value} className={["c1", "c2"]} />
       </div>
-
-      {/* <div className="activitiesSections">
-        <ul className="activitiesItems">
-          <li>activities 1</li>
-          <li>activities 2</li>
-          <li>activities 3</li>
-          <li>activities 4</li>
-        </ul>
-      </div> */}
     </div>
   );
 }
 
 export default ToDo;
-
-// let days = [];
-// function getDaysInMonth(month, year) {
-//   let date = new Date(year, month, 1);
-//   while (date.getMonth() === month) {
-//     days.push(new Date(date));
-//     date.setDate(date.getDate() + 1);
-//   }
-//   return days;
-// }
-// getDaysInMonth(4, 2022);
-// console.log(days);
-// let dayNum = [];
-// let day = [];
-// days.map((value) => {
-//   dayNum.push(value.toString().split(" ").slice(0, 1));
-//   day.push(value.toUTCString().split(" ").slice(1, 2));
-//   return value;
-//   // return dayNum;
-// });
-// console.log(dayNum);
-// console.log(dayNum);
