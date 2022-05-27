@@ -1,13 +1,18 @@
 .Container {
   width: 80vw;
   height: 100vh;
-
   .HeaderContainer {
     display: flex;
     justify-content: space-between;
+    background-color: #00a2ff28;
+    box-shadow: 0px 10px 10px #00a2ff;
+    height: 100px;
+    h1 {
+      text-shadow: 0px 0px 5px rgb(154, 36, 36);
 
-    span {
-      color: #00a2ff;
+      span {
+        color: #00a2ff;
+      }
     }
   }
   .degreesDiv {
@@ -19,6 +24,8 @@
     }
     .react-clock {
       margin: -100px 50px 0px 0px;
+      background-color: white;
+      border-radius: 50%;
     }
   }
   .daysDiv {

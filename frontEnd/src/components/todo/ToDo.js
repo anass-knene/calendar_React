@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
 import { CalendarClock } from "./CalendarClock";
 import "react-clock/dist/Clock.css";
+import Login from "../Register/Login";
 
 function ToDo() {
   const { user, isUserLogin, userWeatherData, setUserWeatherData } =
@@ -34,7 +35,7 @@ function ToDo() {
     } else {
       console.log("Checking location...");
       navigator.geolocation.getCurrentPosition(success, error);
-      console.log(success);
+      console.log("already success");
     }
     function error() {
       console.log("Geolocation error!");
@@ -62,14 +63,8 @@ function ToDo() {
             ""
           )}
         </h1>
-        {userWeatherData ? (
-          <img
-            src={`http://openweathermap.org/img/wn/${userWeatherData.weather[0].icon}@2x.png`}
-            alt="img"
-          />
-        ) : (
-          <h1>...loading</h1>
-        )}
+
+        <Login />
       </div>
       <div className="degreesDiv">
         <div className="DegreesIcon">

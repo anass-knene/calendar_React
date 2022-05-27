@@ -35,7 +35,7 @@ function Container({ children }) {
           setUser(result.data.getVerify.user);
           setIsUserLogin(true);
         } else {
-          navigate("/login");
+          navigate("/");
         }
       });
   }, []);

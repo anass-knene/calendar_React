@@ -5,8 +5,8 @@ import Login from "../Register/Login";
 function Home() {
   return (
     <div className="BtnRegister">
-      <Link to="login">Login</Link>
-      <Link to="login">signup</Link>
+      {/* <Link to="login">Login</Link>
+      <Link to="login">signup</Link> */}
     </div>
   );
 }
