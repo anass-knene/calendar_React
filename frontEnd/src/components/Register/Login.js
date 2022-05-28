@@ -8,7 +8,7 @@ import { HiOutlineLogin } from "react-icons/hi";
 function Login() {
   const navigate = useNavigate();
   const { setUser, isUserLogin, setIsUserLogin } = useContext(MyContext);
-  const [LoginInputStyle, setLoginInputStyle] = useState(false);
+  const [LoginInputStyle, setLoginInputStyle] = useState(true);
   const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
   if (loading) return <h1>...loading</h1>;
@@ -30,9 +30,8 @@ function Login() {
         password: e.target.password.value,
       },
     }).then((res) => {
-      console.log(res);
       if (res.data) {
-        setUser(res.data);
+        setUser(res.data.loginUser.user);
         localStorage.setItem("token", res.data.loginUser.token);
         Swal.fire({
           position: "top",

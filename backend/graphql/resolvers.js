@@ -18,14 +18,13 @@ const resolvers = {
       }
     },
     async getVerify(_, __, { req }) {
-      console.log(req);
       const token = req.headers["token"];
       if (token) {
         const decode = jwt.verify(token, "secret-key");
         if (decode) {
           const user = await UserCollection.findById(decode.userId);
-          redirect("/");
-          return user;
+
+          return { user: user };
         } else {
           throw new Error("you have to login");
         }

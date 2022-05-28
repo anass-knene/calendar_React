@@ -119,9 +119,10 @@ abbr {
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background: #f8f8fa;
+  background: #99cef7;
   color: #6f48eb;
   border-radius: 6px;
+  cursor: pointer;
 }
 .react-calendar__tile--now {
   background: #6f48eb33;
@@ -166,6 +167,7 @@ abbr {
   border-bottom-left-radius: 6px;
   background: #00a2ff;
   color: white;
+  cursor: pointer;
 }
 .react-calendar__tile--rangeEnd {
   border-top-left-radius: 0;

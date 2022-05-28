@@ -57,11 +57,7 @@ function ToDo() {
       <div className="HeaderContainer">
         <h1>
           Good {time}
-          {isUserLogin ? (
-            <span> {user.loginUser.user.firstName.toUpperCase()}</span>
-          ) : (
-            ""
-          )}
+          {isUserLogin ? <span> {user.firstName.toUpperCase()}</span> : ""}
         </h1>
 
         <Login />
