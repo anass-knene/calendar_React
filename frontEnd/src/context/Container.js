@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Container({ children }) {
   const [user, setUser] = useState({});
-
+  const [show, setShow] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userWeatherData, setUserWeatherData] = useState();
   const navigate = useNavigate();
@@ -50,6 +50,8 @@ function Container({ children }) {
         setIsUserLogin,
         userWeatherData,
         setUserWeatherData,
+        show,
+        setShow,
       }}
     >
       {children}

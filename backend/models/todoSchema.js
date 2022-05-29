@@ -2,9 +2,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const todoSchema = new Schema({
+  activityDate: { type: "string", required: true },
   activityName: { type: "string", required: true },
-  lastName: { type: "string", required: true },
-  email: { type: "string", required: true },
-  password: { type: "string", required: true },
-  ToDoList: { type: mongoose.Schema.Types.ObjectId, ref: "todo" },
+  startTime: { type: "string", required: true },
+  endTime: { type: "string", required: true },
+  activityDetails: { type: "string" },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
 });
+const TodoCollection = mongoose.model("todos", todoSchema);
+module.exports = TodoCollection;
