@@ -10,20 +10,20 @@ function Container({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https:localhost:5000/graphql", {
+    fetch("http://localhost:5000/graphql", {
       method: "POST",
       headers: {
         "content-type": "application/json",
         token: localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        query: `query {
-  getVerify{ 
-    user{
-      id 
-      firstName
-      lastName 
-      email
+        query: `query{
+          getVerify{ 
+          user{
+          id 
+          firstName
+          lastName 
+          email
     }
   }
 }`,
@@ -31,11 +31,13 @@ function Container({ children }) {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
+
         if (result.data.getVerify) {
           setUser(result.data.getVerify.user);
           setIsUserLogin(true);
         } else {
-          navigate("/login");
+          navigate("/");
         }
       });
   }, []);
