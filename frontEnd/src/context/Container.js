@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 function Container({ children }) {
   const [user, setUser] = useState({});
-  const [show, setShow] = useState(false);
+
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userWeatherData, setUserWeatherData] = useState();
+  const [LoginInputStyle, setLoginInputStyle] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,8 +51,8 @@ function Container({ children }) {
         setIsUserLogin,
         userWeatherData,
         setUserWeatherData,
-        show,
-        setShow,
+        LoginInputStyle,
+        setLoginInputStyle,
       }}
     >
       {children}
