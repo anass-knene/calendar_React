@@ -7,6 +7,7 @@ function Container({ children }) {
 
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userWeatherData, setUserWeatherData] = useState();
+  const [LoginInputStyle, setLoginInputStyle] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,6 +51,8 @@ function Container({ children }) {
         setIsUserLogin,
         userWeatherData,
         setUserWeatherData,
+        LoginInputStyle,
+        setLoginInputStyle,
       }}
     >
       {children}

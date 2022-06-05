@@ -3,12 +3,16 @@ import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
 import { CalendarClock } from "./CalendarClock";
 import "react-clock/dist/Clock.css";
-import Login from "../Register/Login";
+import Login from "../Register/LoginSignUp";
+import TodoModal from "./TodoModal";
+import LoginSignUp from "../Register/LoginSignUp";
 
 function ToDo() {
   const { user, isUserLogin, userWeatherData, setUserWeatherData } =
     useContext(MyContext);
+
   const [value, onChange] = useState(new Date());
+  const [modalShow, setModalShow] = useState(false);
 
   let today = new Date().getHours();
   let time = "";
@@ -51,18 +55,22 @@ function ToDo() {
   useEffect(() => {
     getLocation();
   }, []);
+  function showModal(val) {
+    console.log(val);
+    setModalShow(true);
+  }
 
   return (
-    <div className="Container">
-      <div className="HeaderContainer">
-        <h1>
+    <div className="Container ">
+      <div className="HeaderContainer pt-4">
+        <h1 className="ms-1">
           Good {time}
           {isUserLogin ? <span> {user.firstName.toUpperCase()}</span> : ""}
         </h1>
 
-        <Login />
+        <LoginSignUp />
       </div>
-      <div className="degreesDiv">
+      <div className="degreesDiv mt-4">
         <div className="DegreesIcon">
           <img
             src={`http://openweathermap.org/img/wn/${userWeatherData?.weather[0].icon}@2x.png`}
@@ -83,7 +91,17 @@ function ToDo() {
         </div>
       </div>
       <div className="daysDiv">
-        <Calendar onChange={onChange} value={value} className={["c1", "c2"]} />
+        <Calendar
+          onChange={onChange}
+          value={value}
+          className={["c1", "c2"]}
+          onClickDay={showModal}
+        />
+        <TodoModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          value={value}
+        />
       </div>
     </div>
   );

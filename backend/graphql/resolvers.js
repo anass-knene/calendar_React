@@ -30,6 +30,18 @@ const resolvers = {
         }
       }
     },
+    async getTodo(_, __, { req }) {
+      console.log(req);
+      // if (token) {
+      //   const decode = jwt.verify(token, "secret-key");
+      //   if (decode) {
+      //     const user = await UserCollection.findById(decode.userId);
+      //     return { user: user };
+      //   } else {
+      //     throw new Error("you have to login");
+      //   }
+      // }
+    },
   },
   Mutation: {
     async loginUser(_, { email, password }, { req }) {
@@ -86,6 +98,23 @@ const resolvers = {
         return await createUser.save();
       } else {
         throw new Error("you have already registered with this email");
+      }
+    },
+    async addTodo(_, args) {
+      const decode = jwt.verify(token, "secret-key");
+      if (decode) {
+        const createTodo = new UserCollection(args);
+        await createTodo.save();
+        const user = await UserCollection.findById(args.todoList);
+        user.jobs.push(createTodo._id);
+        await user.save();
+        const populateCreateTodo = await createTodo.populate({
+          path: "todoList",
+          module: "users",
+        });
+        return populateCreateTodo;
+      } else {
+        throw new Error("you have to login");
       }
     },
   },
