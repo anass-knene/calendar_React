@@ -27,7 +27,30 @@ export const LOGIN_USER = gql`
         firstName
         lastName
         email
+        id
       }
+    }
+  }
+`;
+export const ADD_TODO = gql`
+  mutation AddTodo(
+    $activityDate: String!
+    $activityName: String!
+    $startTime: String!
+    $endTime: String!
+    $activityDetails: String
+    $createdBy: ID!
+  ) {
+    addTodo(
+      activityDate: $activityDate
+      activityName: $activityName
+      startTime: $startTime
+      endTime: $endTime
+      activityDetails: $activityDetails
+      createdBy: $createdBy
+    ) {
+      activityDate
+      activityName
     }
   }
 `;

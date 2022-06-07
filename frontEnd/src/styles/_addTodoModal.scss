@@ -1,0 +1,12 @@
+form {
+  padding: 20px;
+  input {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    outline: none;
+  }
+  input[type="submit"] {
+    width: auto;
+  }
+}
