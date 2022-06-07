@@ -55,8 +55,7 @@ function ToDo() {
   useEffect(() => {
     getLocation();
   }, []);
-  function showModal(val) {
-    console.log(val);
+  function showModal() {
     setModalShow(true);
   }
 

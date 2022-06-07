@@ -30,18 +30,18 @@ const resolvers = {
         }
       }
     },
-    async getTodo(_, __, { req }) {
-      console.log(req);
-      // if (token) {
-      //   const decode = jwt.verify(token, "secret-key");
-      //   if (decode) {
-      //     const user = await UserCollection.findById(decode.userId);
-      //     return { user: user };
-      //   } else {
-      //     throw new Error("you have to login");
-      //   }
-      // }
-    },
+    // async getTodo(_, __, { req }) {
+    //   console.log(req);
+    // if (token) {
+    //   const decode = jwt.verify(token, "secret-key");
+    //   if (decode) {
+    //     const user = await UserCollection.findById(decode.userId);
+    //     return { user: user };
+    //   } else {
+    //     throw new Error("you have to login");
+    //   }
+    // }
+    //   },
   },
   Mutation: {
     async loginUser(_, { email, password }, { req }) {
