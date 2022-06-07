@@ -1,12 +1,13 @@
 .Login {
   display: flex;
   margin-top: 10px;
-  width: 200px;
+  width: 250px;
   position: relative;
   .react-icons {
     position: absolute;
     right: 0px;
     cursor: pointer;
+    color: #0055ff;
   }
   form {
     display: flex;

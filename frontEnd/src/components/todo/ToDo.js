@@ -3,8 +3,9 @@ import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
 import { CalendarClock } from "./CalendarClock";
 import "react-clock/dist/Clock.css";
-import Login from "../Register/Login";
+import Login from "../Register/LoginSignUp";
 import TodoModal from "./TodoModal";
+import LoginSignUp from "../Register/LoginSignUp";
 
 function ToDo() {
   const { user, isUserLogin, userWeatherData, setUserWeatherData } =
@@ -67,7 +68,7 @@ function ToDo() {
           {isUserLogin ? <span> {user.firstName.toUpperCase()}</span> : ""}
         </h1>
 
-        <Login />
+        <LoginSignUp />
       </div>
       <div className="degreesDiv mt-4">
         <div className="DegreesIcon">
