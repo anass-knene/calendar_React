@@ -6,6 +6,7 @@ const UserCollection = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
+const TodoCollection = require("../models/todoSchema");
 
 const resolvers = {
   Query: {
@@ -100,21 +101,29 @@ const resolvers = {
         throw new Error("you have already registered with this email");
       }
     },
-    async addTodo(_, args) {
-      const decode = jwt.verify(token, "secret-key");
-      if (decode) {
-        const createTodo = new UserCollection(args);
-        await createTodo.save();
-        const user = await UserCollection.findById(args.todoList);
-        user.jobs.push(createTodo._id);
-        await user.save();
-        const populateCreateTodo = await createTodo.populate({
-          path: "todoList",
-          module: "users",
-        });
-        return populateCreateTodo;
+    async addTodo(_, args, { req }) {
+      const token = req.headers["token"];
+      if (token) {
+        const decode = jwt.verify(token, "secret-key");
+        if (decode) {
+          const createTodo = new TodoCollection(args);
+          await createTodo.save();
+
+          const user = await UserCollection.findById(args.createdBy);
+
+          user.todoList.push(createTodo._id);
+          await user.save();
+
+          const populateCreateTodo = await createTodo.populate({
+            path: "createdBy",
+            module: "users",
+          });
+          return populateCreateTodo;
+        } else {
+          throw new Error("you have to login");
+        }
       } else {
-        throw new Error("you have to login");
+        throw new Error("you have not authenticated");
       }
     },
   },

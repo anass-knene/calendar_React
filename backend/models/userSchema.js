@@ -6,7 +6,7 @@ const userSchema = new Schema({
   lastName: { type: "string", required: true },
   email: { type: "string", required: true },
   password: { type: "string", required: true },
-  TodoList: { type: mongoose.Schema.Types.ObjectId, ref: "todos" },
+  todoList: [{ type: mongoose.Schema.Types.ObjectId, ref: "todoLists" }],
 });
-const userCollection = mongoose.model("User", userSchema);
+const userCollection = mongoose.model("users", userSchema);
 module.exports = userCollection;

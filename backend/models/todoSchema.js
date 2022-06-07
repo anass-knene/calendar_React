@@ -9,5 +9,5 @@ const todoSchema = new Schema({
   activityDetails: { type: "string" },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
 });
-const TodoCollection = mongoose.model("todos", todoSchema);
+const TodoCollection = mongoose.model("todoLists", todoSchema);
 module.exports = TodoCollection;
