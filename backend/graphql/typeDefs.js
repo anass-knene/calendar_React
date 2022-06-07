@@ -17,6 +17,7 @@ const typeDefs = gql`
     user: UserType
   }
   type TodoType {
+    id: String
     activityDate: String!
     activityName: String!
     startTime: String!
@@ -27,7 +28,7 @@ const typeDefs = gql`
   type Query {
     getOneUser(id: ID): UserType
     getVerify: VerifyType
-    getTodo(id: ID): [TodoType]
+    # getTodo(id: ID): [TodoType]
   }
   type Mutation {
     loginUser(email: String!, password: String!): UserAuthType!
