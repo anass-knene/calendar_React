@@ -23,7 +23,9 @@ const resolvers = {
       if (token) {
         const decode = jwt.verify(token, "secret-key");
         if (decode) {
-          const user = await UserCollection.findById(decode.userId);
+          const user = await UserCollection.findById(decode.userId).populate(
+            "todoList"
+          );
 
           return { user: user };
         } else {
@@ -31,22 +33,12 @@ const resolvers = {
         }
       }
     },
-    // async getTodo(_, __, { req }) {
-    //   console.log(req);
-    // if (token) {
-    //   const decode = jwt.verify(token, "secret-key");
-    //   if (decode) {
-    //     const user = await UserCollection.findById(decode.userId);
-    //     return { user: user };
-    //   } else {
-    //     throw new Error("you have to login");
-    //   }
-    // }
-    //   },
   },
   Mutation: {
     async loginUser(_, { email, password }, { req }) {
-      const user = await UserCollection.findOne({ email: email });
+      const user = await UserCollection.findOne({ email: email }).populate(
+        "todoList"
+      );
       if (!user) {
         throw new Error("Account not found , please sign up");
       }

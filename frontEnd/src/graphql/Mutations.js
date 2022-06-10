@@ -28,6 +28,14 @@ export const LOGIN_USER = gql`
         lastName
         email
         id
+        todoList {
+          id
+          activityDate
+          activityName
+          activityDetails
+          startTime
+          endTime
+        }
       }
     }
   }

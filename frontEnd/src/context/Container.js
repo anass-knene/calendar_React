@@ -8,6 +8,7 @@ function Container({ children }) {
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userWeatherData, setUserWeatherData] = useState();
   const [LoginInputStyle, setLoginInputStyle] = useState(true);
+  const [addNewTodo, setAddNewTodo] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +26,15 @@ function Container({ children }) {
           firstName
           lastName 
           email
+         todoList {
+           id
+        activityDate
+        activityName
+        activityDetails
+        startTime
+        endTime
+          
+        }
     }
   }
 }`,
@@ -41,7 +51,7 @@ function Container({ children }) {
           navigate("/");
         }
       });
-  }, []);
+  }, [addNewTodo]);
   return (
     <MyContext.Provider
       value={{
@@ -53,6 +63,7 @@ function Container({ children }) {
         setUserWeatherData,
         LoginInputStyle,
         setLoginInputStyle,
+        setAddNewTodo,
       }}
     >
       {children}
