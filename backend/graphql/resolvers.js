@@ -118,6 +118,25 @@ const resolvers = {
         throw new Error("you have not authenticated");
       }
     },
+    async updateTodo(_, args, { req }) {
+      const token = req.headers["token"];
+
+      if (token) {
+        const decode = jwt.verify(token, "secret-key");
+        if (decode) {
+          const updateTodo = await TodoCollection.findByIdAndUpdate(
+            args.id,
+            { ...args },
+            { new: true }
+          );
+          return updateTodo;
+        } else {
+          throw new ApolloError("yoh have to login", 403);
+        }
+      } else {
+        throw new Error("you have not authenticated");
+      }
+    },
   },
 };
 module.exports = { resolvers };

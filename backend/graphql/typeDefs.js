@@ -48,7 +48,14 @@ const typeDefs = gql`
       activityDetails: String
       createdBy: ID!
     ): TodoType
-
+    updateTodo(
+      id: ID!
+      activityDate: String
+      activityName: String
+      startTime: String
+      endTime: String
+      activityDetails: String
+    ): TodoType
     #     deleteUser(id: ID):UserType
     #     updateUser(
     #   	  id: ID!
