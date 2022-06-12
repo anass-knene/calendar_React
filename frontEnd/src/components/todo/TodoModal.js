@@ -9,23 +9,24 @@ function TodoModal(props) {
   const [modalShow1, setModalShow1] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
   const [updateTodoInput, setUpdateTodoInput] = useState();
-  let arr = [];
-  // const editBtnFun = (id) => {
-  //   setUpdateTodoInput(id);
-  //   setEditBtn(!editBtn);
-  // };
   const updateTodoForm = (e) => {
     e.preventDefault();
 
-    console.log("hello");
-    // console.log(e.target.activityName.value);
+    console.log(e.target.activityName.value);
+    console.log(editBtn);
+  };
+
+  const editBtnForm = (id) => {
     setEditBtn(!editBtn);
+    setUpdateTodoInput(id);
   };
 
   const addTodoBtn = () => {
     setModalShow1(true);
     props.onHide();
   };
+  // /////////
+  let arr = [];
   if (user.todoList) {
     for (let i = 0; i < user.todoList.length; i++) {
       const element = user.todoList[i];
@@ -34,7 +35,7 @@ function TodoModal(props) {
       }
     }
   }
-
+  // //////
   return (
     <div>
       <Modal
@@ -59,7 +60,7 @@ function TodoModal(props) {
                 <form onSubmit={updateTodoForm}>
                   <Modal.Header>
                     <h3>Title</h3>
-                    {updateTodoInput === todo.id ? (
+                    {updateTodoInput === todo.id && editBtn ? (
                       <input
                         type="text"
                         name="activityName"
@@ -72,7 +73,7 @@ function TodoModal(props) {
                   <Modal.Body className=" ">
                     <div className="d-flex justify-content-between">
                       <h4>Start Time</h4>
-                      {updateTodoInput === todo.id ? (
+                      {updateTodoInput === todo.id && editBtn ? (
                         <input
                           type="text"
                           placeholder={todo.startTime}
@@ -85,7 +86,7 @@ function TodoModal(props) {
                     <hr />
                     <div className="d-flex justify-content-between">
                       <h4>End Time</h4>
-                      {updateTodoInput === todo.id ? (
+                      {updateTodoInput === todo.id && editBtn ? (
                         <input
                           type="text"
                           placeholder={todo.endTime}
@@ -98,7 +99,7 @@ function TodoModal(props) {
                     <hr />
                     <div className="d-flex justify-content-between">
                       <h4>Descriptions</h4>
-                      {updateTodoInput === todo.id ? (
+                      {updateTodoInput === todo.id && editBtn ? (
                         <input
                           type="text"
                           placeholder={todo.activityDetails}
@@ -110,20 +111,37 @@ function TodoModal(props) {
                     </div>
                   </Modal.Body>
                   <hr />
-                  {/* {updateTodoInput === todo.id ? ( */}
-                  <input
-                    className="btn btn-secondary"
-                    type="submit"
-                    value="Submit"
-                  />
-                  {/* ) : ( */}
-                  <input
-                    className="btn btn-secondary"
-                    type="button"
-                    value="Edit"
-                    onClick={() => setUpdateTodoInput(todo.id)}
-                  />
-                  {/* )} */}
+
+                  {updateTodoInput === todo.id && editBtn ? (
+                    <div className="d-flex justify-content-center bg-light p-5">
+                      <input
+                        className=" btn btn-primary"
+                        type="Submit"
+                        defaultValue="Save"
+                      />
+
+                      <input
+                        className=" ms-4 btn-dark "
+                        style={{ width: "60px", borderRadius: "5px" }}
+                        type="button"
+                        value="X"
+                        onClick={() => {
+                          setUpdateTodoInput(todo.id);
+                          setEditBtn(!editBtn);
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="d-flex justify-content-center bg-light p-5">
+                      <input
+                        className=" btn btn-primary ms-4  "
+                        id="editBtnId"
+                        type="button"
+                        defaultValue="Edit"
+                        onClick={() => editBtnForm(todo.id)}
+                      />
+                    </div>
+                  )}
                 </form>
               </div>
             );
