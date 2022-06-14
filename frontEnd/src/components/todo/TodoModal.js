@@ -1,26 +1,89 @@
 import React, { useContext, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Swal from "sweetalert2";
 import { Button, Modal } from "react-bootstrap";
 import AddTodoModal from "./AddTodoModal";
 import { MyContext } from "../../context/context";
+import { useMutation } from "@apollo/client";
+import { UPDATE_TODO } from "../../graphql/Mutations";
 function TodoModal(props) {
   const { user } = useContext(MyContext);
   const [modalShow1, setModalShow1] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
   const [updateTodoInput, setUpdateTodoInput] = useState();
-  const updateTodoForm = (e) => {
+  const [updateTodo, { data, loading, error }] = useMutation(UPDATE_TODO);
+
+  const updateTodoForm = (e, id) => {
     e.preventDefault();
+    if (editBtn) {
+      console.log("1");
+      let activityName, startTime, endTime, activityDetails;
+      // if (
+      //   e.target.activityDate.value !== undefined &&
+      //   e.target.activityDate.value !== ""
+      // ) {
+      //   activityDate = e.target.activityDate.value;
+      // }
+      if (
+        e.target.activityName.value !== undefined &&
+        e.target.activityName.value !== ""
+      ) {
+        activityName = e.target.activityName.value;
+        console.log(activityName);
+      }
+      if (
+        e.target.startTime.value !== undefined &&
+        e.target.startTime.value !== ""
+      ) {
+        startTime = e.target.startTime.value;
+        console.log(startTime);
+      }
+      if (
+        e.target.endTime.value !== undefined &&
+        e.target.endTime.value !== ""
+      ) {
+        endTime = e.target.endTime.value;
+        console.log(endTime);
+      }
+      if (
+        e.target.activityDetails.value !== undefined &&
+        e.target.activityDetails.value !== ""
+      ) {
+        activityDetails = e.target.activityDetails.value;
+        console.log(activityDetails);
+      }
+      if (
+        // activityDate !== e.target.activityDate.value &&
+        activityName !== e.target.activityName.value &&
+        startTime !== e.target.startTime.value &&
+        endTime !== e.target.endTime.value &&
+        activityDetails !== e.target.activityDetails.value
+      ) {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: "nothing change",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        // return props.onHide();
+      }
 
-    console.log(e.target.activityName.value);
-    console.log(editBtn);
+      // props.onHide();
+      updateTodo({
+        variables: {
+          updateTodoId: updateTodoInput,
+        },
+      });
+    } else {
+      e.preventDefault();
+      setEditBtn(!editBtn);
+      setUpdateTodoInput(id);
+      return;
+    }
   };
 
-  const editBtnForm = (id) => {
-    setEditBtn(!editBtn);
-    setUpdateTodoInput(id);
-  };
-
+  // /////////
   const addTodoBtn = () => {
     setModalShow1(true);
     props.onHide();
@@ -134,11 +197,16 @@ function TodoModal(props) {
                   ) : (
                     <div className="d-flex justify-content-center bg-light p-5">
                       <input
-                        className=" btn btn-primary ms-4  "
+                        className=" btn btn-primary me-4  "
                         id="editBtnId"
                         type="button"
                         defaultValue="Edit"
-                        onClick={() => editBtnForm(todo.id)}
+                        onClick={(e) => updateTodoForm(e, todo.id)}
+                      />
+                      <input
+                        type="button"
+                        value="Delete"
+                        className="btn btn-danger ms-4"
                       />
                     </div>
                   )}

@@ -65,15 +65,13 @@ export const ADD_TODO = gql`
 
 export const UPDATE_TODO = gql`
   mutation UpdateTodo(
-    $activityDate: String
     $activityName: String
     $startTime: String
     $endTime: String
     $activityDetails: String
     $updateTodoId: ID!
   ) {
-    addTodo(
-      activityDate: $activityDate
+    updateTodo(
       activityName: $activityName
       startTime: $startTime
       endTime: $endTime
