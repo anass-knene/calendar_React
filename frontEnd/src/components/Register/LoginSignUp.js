@@ -7,43 +7,6 @@ function LoginSignUp() {
   const { isUserLogin, setIsUserLogin, LoginInputStyle, setLoginInputStyle } =
     useContext(MyContext);
 
-  // const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
-
-  // if (loading) return <h1>...loading</h1>;
-  // if (error)
-  //   return Swal.fire({
-  //     position: "top",
-  //     icon: "error",
-  //     title: error,
-  //     showConfirmButton: false,
-  //     timer: 2000,
-  //     customClass: "swal-width",
-  //   });
-
-  // const loginUserForm = (e) => {
-  //   e.preventDefault();
-  //   loginUser({
-  //     variables: {
-  //       email: e.target.email.value,
-  //       password: e.target.password.value,
-  //     },
-  //   }).then((res) => {
-  //     if (res.data) {
-  //       setUser(res.data.loginUser.user);
-  //       localStorage.setItem("token", res.data.loginUser.token);
-  //       Swal.fire({
-  //         position: "top",
-  //         icon: "success",
-  //         title: "Login successfully",
-  //         showConfirmButton: false,
-  //         timer: 2000,
-  //         customClass: "swal-width",
-  //       });
-  //       setIsUserLogin(true);
-  //       setLoginInputStyle(true);
-  //     }
-  //   });
-  // };
   function logoutUserFunction() {
     localStorage.removeItem("token");
     setIsUserLogin(false);

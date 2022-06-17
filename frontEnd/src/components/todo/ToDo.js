@@ -3,16 +3,28 @@ import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
 import { CalendarClock } from "./CalendarClock";
 import "react-clock/dist/Clock.css";
-import Login from "../Register/LoginSignUp";
+
 import TodoModal from "./TodoModal";
 import LoginSignUp from "../Register/LoginSignUp";
+import { useQuery } from "@apollo/client";
+import { GET_ONE_USER } from "../../graphql/Queries";
 
 function ToDo() {
-  const { user, isUserLogin, userWeatherData, setUserWeatherData } =
+  const { user, setUser, isUserLogin, userWeatherData, setUserWeatherData } =
     useContext(MyContext);
 
   const [value, onChange] = useState(new Date());
   const [modalShow, setModalShow] = useState(false);
+  const { data, loading, error } = useQuery(GET_ONE_USER, {
+    variables: { getOneUser: user.id },
+  });
+  if (loading) {
+    console.log("...is loading");
+  }
+  if (data) {
+    // console.log(data.getOneUser);
+    setUser(data.getOneUser);
+  }
 
   let today = new Date().getHours();
   let time = "";

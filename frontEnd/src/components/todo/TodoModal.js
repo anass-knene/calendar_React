@@ -16,44 +16,33 @@ function TodoModal(props) {
   const updateTodoForm = (e, id) => {
     e.preventDefault();
     if (editBtn) {
-      console.log("1");
       let activityName, startTime, endTime, activityDetails;
-      // if (
-      //   e.target.activityDate.value !== undefined &&
-      //   e.target.activityDate.value !== ""
-      // ) {
-      //   activityDate = e.target.activityDate.value;
-      // }
+
       if (
         e.target.activityName.value !== undefined &&
         e.target.activityName.value !== ""
       ) {
         activityName = e.target.activityName.value;
-        console.log(activityName);
       }
       if (
         e.target.startTime.value !== undefined &&
         e.target.startTime.value !== ""
       ) {
         startTime = e.target.startTime.value;
-        console.log(startTime);
       }
       if (
         e.target.endTime.value !== undefined &&
         e.target.endTime.value !== ""
       ) {
         endTime = e.target.endTime.value;
-        console.log(endTime);
       }
       if (
         e.target.activityDetails.value !== undefined &&
         e.target.activityDetails.value !== ""
       ) {
         activityDetails = e.target.activityDetails.value;
-        console.log(activityDetails);
       }
       if (
-        // activityDate !== e.target.activityDate.value &&
         activityName !== e.target.activityName.value &&
         startTime !== e.target.startTime.value &&
         endTime !== e.target.endTime.value &&
@@ -73,7 +62,17 @@ function TodoModal(props) {
       updateTodo({
         variables: {
           updateTodoId: updateTodoInput,
+          activityName: activityName,
+          startTime: startTime,
+          endTime: endTime,
+          activityDetails: activityDetails,
         },
+      }).then((res) => {
+        console.log(res);
+        if (res.data) {
+          console.log(res.data);
+          // we need to use sweetalert2 here after updating successfully
+        }
       });
     } else {
       e.preventDefault();
@@ -137,11 +136,10 @@ function TodoModal(props) {
                     <div className="d-flex justify-content-between">
                       <h4>Start Time</h4>
                       {updateTodoInput === todo.id && editBtn ? (
-                        <input
-                          type="text"
-                          placeholder={todo.startTime}
-                          name="startTime"
-                        />
+                        <div className="timeUpdateDiv">
+                          <p>{todo.startTime}</p>
+                          <input type="time" name="startTime" />
+                        </div>
                       ) : (
                         <h4>{todo.startTime}</h4>
                       )}
@@ -150,11 +148,10 @@ function TodoModal(props) {
                     <div className="d-flex justify-content-between">
                       <h4>End Time</h4>
                       {updateTodoInput === todo.id && editBtn ? (
-                        <input
-                          type="text"
-                          placeholder={todo.endTime}
-                          name="endTime"
-                        />
+                        <div className="timeUpdateDiv">
+                          <p>{todo.endTime}</p>
+                          <input type="time" name="endTime" />
+                        </div>
                       ) : (
                         <h4>{todo.endTime}</h4>
                       )}

@@ -10,8 +10,8 @@ const TodoCollection = require("../models/todoSchema");
 
 const resolvers = {
   Query: {
-    async getOneUser(_, { id }, { req }) {
-      const getUser = await UserCollection.findById({ id });
+    async getOneUser(_, { id }) {
+      const getUser = await UserCollection.findById(id);
       if (getUser) {
         return getUser;
       } else {
@@ -123,6 +123,7 @@ const resolvers = {
 
       if (token) {
         const decode = jwt.verify(token, "secret-key");
+
         if (decode) {
           const updateTodo = await TodoCollection.findByIdAndUpdate(
             args.id,
