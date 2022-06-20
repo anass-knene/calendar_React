@@ -7,13 +7,13 @@ import { ADD_TODO } from "../../graphql/Mutations";
 
 function AddTodoModal(props) {
   let storeCalendarValue = props.value.toDateString();
-  const { user } = useContext(MyContext);
-  console.log(props.value.toDateString());
+  const { user, setAddNewTodo } = useContext(MyContext);
+
   const [addTodo, { loading, error }] = useMutation(ADD_TODO);
   if (loading) return <h1>...loading</h1>;
   const saveToDo = (e) => {
     e.preventDefault();
-    console.log(storeCalendarValue);
+
     addTodo({
       variables: {
         activityDate: storeCalendarValue,
@@ -38,10 +38,11 @@ function AddTodoModal(props) {
         });
         // setIsUserLogin(true);
         // setLoginInputStyle(true);
+        setAddNewTodo(true);
       }
     });
   };
-  if (error)
+  if (error) {
     Swal.fire({
       position: "top",
       icon: "error",
@@ -50,12 +51,14 @@ function AddTodoModal(props) {
       timer: 2000,
       customClass: "swal-width",
     });
+    setAddNewTodo(false);
+  }
 
   return (
     <div className="addTodoModalContainer">
       <Modal
         {...props}
-        size="lg"
+        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >

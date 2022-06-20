@@ -6,11 +6,12 @@ const UserCollection = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
+const TodoCollection = require("../models/todoSchema");
 
 const resolvers = {
   Query: {
-    async getOneUser(_, { id }, { req }) {
-      const getUser = await UserCollection.findById({ id });
+    async getOneUser(_, { id }) {
+      const getUser = await UserCollection.findById(id);
       if (getUser) {
         return getUser;
       } else {
@@ -22,7 +23,9 @@ const resolvers = {
       if (token) {
         const decode = jwt.verify(token, "secret-key");
         if (decode) {
-          const user = await UserCollection.findById(decode.userId);
+          const user = await UserCollection.findById(decode.userId).populate(
+            "todoList"
+          );
 
           return { user: user };
         } else {
@@ -30,22 +33,12 @@ const resolvers = {
         }
       }
     },
-    // async getTodo(_, __, { req }) {
-    //   console.log(req);
-    // if (token) {
-    //   const decode = jwt.verify(token, "secret-key");
-    //   if (decode) {
-    //     const user = await UserCollection.findById(decode.userId);
-    //     return { user: user };
-    //   } else {
-    //     throw new Error("you have to login");
-    //   }
-    // }
-    //   },
   },
   Mutation: {
     async loginUser(_, { email, password }, { req }) {
-      const user = await UserCollection.findOne({ email: email });
+      const user = await UserCollection.findOne({ email: email }).populate(
+        "todoList"
+      );
       if (!user) {
         throw new Error("Account not found , please sign up");
       }
@@ -100,21 +93,49 @@ const resolvers = {
         throw new Error("you have already registered with this email");
       }
     },
-    async addTodo(_, args) {
-      const decode = jwt.verify(token, "secret-key");
-      if (decode) {
-        const createTodo = new UserCollection(args);
-        await createTodo.save();
-        const user = await UserCollection.findById(args.todoList);
-        user.jobs.push(createTodo._id);
-        await user.save();
-        const populateCreateTodo = await createTodo.populate({
-          path: "todoList",
-          module: "users",
-        });
-        return populateCreateTodo;
+    async addTodo(_, args, { req }) {
+      const token = req.headers["token"];
+      if (token) {
+        const decode = jwt.verify(token, "secret-key");
+        if (decode) {
+          const createTodo = new TodoCollection(args);
+          await createTodo.save();
+
+          const user = await UserCollection.findById(args.createdBy);
+
+          user.todoList.push(createTodo._id);
+          await user.save();
+
+          const populateCreateTodo = await createTodo.populate({
+            path: "createdBy",
+            module: "users",
+          });
+          return populateCreateTodo;
+        } else {
+          throw new Error("you have to login");
+        }
       } else {
-        throw new Error("you have to login");
+        throw new Error("you have not authenticated");
+      }
+    },
+    async updateTodo(_, args, { req }) {
+      const token = req.headers["token"];
+
+      if (token) {
+        const decode = jwt.verify(token, "secret-key");
+
+        if (decode) {
+          const updateTodo = await TodoCollection.findByIdAndUpdate(
+            args.id,
+            { ...args },
+            { new: true }
+          );
+          return updateTodo;
+        } else {
+          throw new ApolloError("yoh have to login", 403);
+        }
+      } else {
+        throw new Error("you have not authenticated");
       }
     },
   },

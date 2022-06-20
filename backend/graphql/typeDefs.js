@@ -7,6 +7,7 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     password: String!
+    todoList: [TodoType]
   }
   type UserAuthType {
     token: String!
@@ -28,11 +29,10 @@ const typeDefs = gql`
   type Query {
     getOneUser(id: ID): UserType
     getVerify: VerifyType
-    # getTodo(id: ID): [TodoType]
   }
   type Mutation {
     loginUser(email: String!, password: String!): UserAuthType!
-    #
+
     addUser(
       firstName: String!
       lastName: String!
@@ -48,7 +48,14 @@ const typeDefs = gql`
       activityDetails: String
       createdBy: ID!
     ): TodoType
-
+    updateTodo(
+      id: ID!
+      activityDate: String
+      activityName: String
+      startTime: String
+      endTime: String
+      activityDetails: String
+    ): TodoType
     #     deleteUser(id: ID):UserType
     #     updateUser(
     #   	  id: ID!

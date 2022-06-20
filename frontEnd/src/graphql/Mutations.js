@@ -28,6 +28,14 @@ export const LOGIN_USER = gql`
         lastName
         email
         id
+        todoList {
+          id
+          activityDate
+          activityName
+          activityDetails
+          startTime
+          endTime
+        }
       }
     }
   }
@@ -51,6 +59,31 @@ export const ADD_TODO = gql`
     ) {
       activityDate
       activityName
+    }
+  }
+`;
+
+export const UPDATE_TODO = gql`
+  mutation UpdateTodo(
+    $activityName: String
+    $startTime: String
+    $endTime: String
+    $activityDetails: String
+    $updateTodoId: ID!
+  ) {
+    updateTodo(
+      activityName: $activityName
+      startTime: $startTime
+      endTime: $endTime
+      activityDetails: $activityDetails
+      id: $updateTodoId
+    ) {
+      activityDate
+      activityName
+      startTime
+      endTime
+      activityDetails
+      id
     }
   }
 `;
