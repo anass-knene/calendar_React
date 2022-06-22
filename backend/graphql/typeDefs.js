@@ -18,7 +18,7 @@ const typeDefs = gql`
     user: UserType
   }
   type TodoType {
-    id: String
+    id: ID
     activityDate: String!
     activityName: String!
     startTime: String!
@@ -48,6 +48,7 @@ const typeDefs = gql`
       activityDetails: String
       createdBy: ID!
     ): TodoType
+
     updateTodo(
       id: ID!
       activityDate: String

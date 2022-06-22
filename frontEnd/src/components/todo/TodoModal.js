@@ -6,12 +6,20 @@ import AddTodoModal from "./AddTodoModal";
 import { MyContext } from "../../context/context";
 import { useMutation } from "@apollo/client";
 import { UPDATE_TODO } from "../../graphql/Mutations";
+import { GET_ONE_USER } from "../../graphql/Queries";
 function TodoModal(props) {
   const { user } = useContext(MyContext);
+
   const [modalShow1, setModalShow1] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
   const [updateTodoInput, setUpdateTodoInput] = useState();
-  const [updateTodo, { data, loading, error }] = useMutation(UPDATE_TODO);
+  const [updateTodo, { data, loading, error }] = useMutation(UPDATE_TODO, {
+    refetchQueries: {
+      query: GET_ONE_USER,
+      variables: { getOneUser: user.id },
+      awaitRefetchQueries: true,
+    },
+  });
 
   const updateTodoForm = (e, id) => {
     e.preventDefault();
@@ -55,10 +63,10 @@ function TodoModal(props) {
           showConfirmButton: false,
           timer: 1000,
         });
-        // return props.onHide();
+        return props.onHide();
       }
 
-      // props.onHide();
+      props.onHide();
       updateTodo({
         variables: {
           updateTodoId: updateTodoInput,
@@ -68,10 +76,15 @@ function TodoModal(props) {
           activityDetails: activityDetails,
         },
       }).then((res) => {
-        console.log(res);
         if (res.data) {
-          console.log(res.data);
-          // we need to use sweetalert2 here after updating successfully
+          console.log(res);
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "update successfully",
+            showConfirmButton: false,
+            timer: 1000,
+          });
         }
       });
     } else {
@@ -81,7 +94,15 @@ function TodoModal(props) {
       return;
     }
   };
-
+  if (error) {
+    Swal.fire({
+      position: "top",
+      icon: "error",
+      title: "something went wrong",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
   // /////////
   const addTodoBtn = () => {
     setModalShow1(true);

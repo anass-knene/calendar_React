@@ -15,16 +15,17 @@ function ToDo() {
 
   const [value, onChange] = useState(new Date());
   const [modalShow, setModalShow] = useState(false);
-  const { data, loading, error } = useQuery(GET_ONE_USER, {
-    variables: { getOneUser: user.id },
+  const { loading, error, data } = useQuery(GET_ONE_USER, {
+    variables: { getOneUserId: user.id },
   });
   if (loading) {
     console.log("...is loading");
   }
-  if (data) {
-    // console.log(data.getOneUser);
-    setUser(data.getOneUser);
-  }
+  setTimeout(() => {
+    if (data) {
+      setUser(data.getOneUser);
+    }
+  }, 100);
 
   let today = new Date().getHours();
   let time = "";

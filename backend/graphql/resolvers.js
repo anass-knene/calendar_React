@@ -11,7 +11,7 @@ const TodoCollection = require("../models/todoSchema");
 const resolvers = {
   Query: {
     async getOneUser(_, { id }) {
-      const getUser = await UserCollection.findById(id);
+      const getUser = await UserCollection.findById(id).populate("todoList");
       if (getUser) {
         return getUser;
       } else {
