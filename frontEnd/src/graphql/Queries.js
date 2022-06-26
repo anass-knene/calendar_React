@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_ONE_USER = gql`
-  query GetOneUser($getOneUserId: ID) {
+  query GetOneUser($getOneUserId: ID!) {
     getOneUser(id: $getOneUserId) {
       id
       firstName

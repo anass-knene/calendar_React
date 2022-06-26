@@ -8,7 +8,7 @@ function Container({ children }) {
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userWeatherData, setUserWeatherData] = useState();
   const [LoginInputStyle, setLoginInputStyle] = useState(true);
-  const [addNewTodo, setAddNewTodo] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,16 +42,16 @@ function Container({ children }) {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
-
         if (result.data.getVerify) {
+          // console.log(result);
           setUser(result.data.getVerify.user);
           setIsUserLogin(true);
         } else {
           navigate("/");
         }
       });
-  }, [addNewTodo]);
+  }, []);
+
   return (
     <MyContext.Provider
       value={{
@@ -63,7 +63,6 @@ function Container({ children }) {
         setUserWeatherData,
         LoginInputStyle,
         setLoginInputStyle,
-        setAddNewTodo,
       }}
     >
       {children}

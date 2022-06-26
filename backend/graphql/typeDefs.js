@@ -26,8 +26,11 @@ const typeDefs = gql`
     activityDetails: String
     createdBy: UserType
   }
+  type BooleanType {
+    success: Boolean
+  }
   type Query {
-    getOneUser(id: ID): UserType
+    getOneUser(id: ID!): UserType
     getVerify: VerifyType
   }
   type Mutation {
@@ -57,7 +60,8 @@ const typeDefs = gql`
       endTime: String
       activityDetails: String
     ): TodoType
-    #     deleteUser(id: ID):UserType
+
+    deleteTodo(id: ID): BooleanType
     #     updateUser(
     #   	  id: ID!
     #   	   firstName: String

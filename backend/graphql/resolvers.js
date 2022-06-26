@@ -12,6 +12,7 @@ const resolvers = {
   Query: {
     async getOneUser(_, { id }) {
       const getUser = await UserCollection.findById(id).populate("todoList");
+
       if (getUser) {
         return getUser;
       } else {
@@ -136,6 +137,20 @@ const resolvers = {
         }
       } else {
         throw new Error("you have not authenticated");
+      }
+    },
+    async deleteTodo(_, args, { req }) {
+      // console.log(args);
+      const token = req.headers["token"];
+
+      if (token) {
+        const decode = jwt.verify(token, "secret-key");
+        if (decode) {
+          await TodoCollection.findByIdAndDelete(args.id);
+          return { success: true };
+        }
+      } else {
+        throw new ApolloError("yoh have to login", 403);
       }
     },
   },

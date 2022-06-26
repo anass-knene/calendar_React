@@ -4,12 +4,21 @@ import { Button, Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { MyContext } from "../../context/context";
 import { ADD_TODO } from "../../graphql/Mutations";
+import { GET_ONE_USER } from "../../graphql/Queries";
 
 function AddTodoModal(props) {
   let storeCalendarValue = props.value.toDateString();
-  const { user, setAddNewTodo } = useContext(MyContext);
+  const { user } = useContext(MyContext);
 
-  const [addTodo, { loading, error }] = useMutation(ADD_TODO);
+  const [addTodo, { loading, error }] = useMutation(ADD_TODO, {
+    refetchQueries: [
+      {
+        query: GET_ONE_USER,
+        variables: { getOneUserId: user.id },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
   if (loading) return <h1>...loading</h1>;
   const saveToDo = (e) => {
     e.preventDefault();
@@ -25,9 +34,6 @@ function AddTodoModal(props) {
       },
     }).then((res) => {
       if (res.data) {
-        // setUser(res.data.loginUser.user);
-        // localStorage.setItem("token", res.data.loginUser.token);
-        // navigate("/");
         Swal.fire({
           position: "top",
           icon: "success",
@@ -36,9 +42,6 @@ function AddTodoModal(props) {
           timer: 1000,
           customClass: "swal-width",
         });
-        // setIsUserLogin(true);
-        // setLoginInputStyle(true);
-        setAddNewTodo(true);
       }
     });
   };
@@ -51,7 +54,6 @@ function AddTodoModal(props) {
       timer: 2000,
       customClass: "swal-width",
     });
-    setAddNewTodo(false);
   }
 
   return (
@@ -65,19 +67,29 @@ function AddTodoModal(props) {
         <form onSubmit={saveToDo}>
           <Modal.Header>
             <h3>Title</h3>
-            <input type="text" name="activityName" placeholder="Title" />
+            <input
+              type="text"
+              name="activityName"
+              placeholder="Title"
+              required
+            />
           </Modal.Header>
           <Modal.Body className=" ">
             <div className="d-flex justify-content-between">
               <h4>Start Time</h4>
 
-              <input type="time" name="start" placeholder="Start Time" />
+              <input
+                type="time"
+                name="start"
+                placeholder="Start Time"
+                required
+              />
             </div>
             <hr />
             <div className="d-flex justify-content-between">
               <h4>End Time</h4>
 
-              <input type="time" name="end" placeholder="End Time" />
+              <input type="time" name="end" placeholder="End Time" required />
             </div>
             <hr />
             <div className="text-center">
@@ -87,6 +99,7 @@ function AddTodoModal(props) {
                 name="activityDetails"
                 className="form-control"
                 style={{ minWidth: "100%" }}
+                required
               ></textarea>
             </div>
           </Modal.Body>
