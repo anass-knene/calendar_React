@@ -61,7 +61,7 @@ const typeDefs = gql`
       activityDetails: String
     ): TodoType
 
-    deleteTodo(id: ID): BooleanType
+    deleteTodo(todoId: ID!, userId: ID!): BooleanType
     #     updateUser(
     #   	  id: ID!
     #   	   firstName: String

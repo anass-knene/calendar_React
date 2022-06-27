@@ -21,7 +21,6 @@ function Login() {
       },
     }).then((res) => {
       if (res.data) {
-        console.log(res.data);
         setUser(res.data.loginUser.user);
         localStorage.setItem("token", res.data.loginUser.token);
         navigate("/");

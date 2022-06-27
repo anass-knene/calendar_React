@@ -140,13 +140,29 @@ const resolvers = {
       }
     },
     async deleteTodo(_, args, { req }) {
-      // console.log(args);
       const token = req.headers["token"];
-
       if (token) {
         const decode = jwt.verify(token, "secret-key");
+
         if (decode) {
-          await TodoCollection.findByIdAndDelete(args.id);
+          const user = await UserCollection.findById(args.userId);
+
+          if (user) {
+            await TodoCollection.findByIdAndDelete(args.todoId);
+            user.todoList.filter((item) => item.id === args.todoId);
+            let findObjectId = user.todoList.map((item) => {
+              return item.toString();
+            });
+
+            let filterObjectId = findObjectId.filter(
+              (item) => item !== args.todoId
+            );
+
+            user.todoList = [...(user.todoList = filterObjectId)];
+
+            await user.save();
+          }
+
           return { success: true };
         }
       } else {

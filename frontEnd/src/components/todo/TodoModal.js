@@ -121,7 +121,7 @@ function TodoModal(props) {
     awaitRefetchQueries: true,
   });
   const deleteOneTodo = (id) => {
-    deleteTodo({ variables: { deleteTodoId: id } }).then((res) => {
+    deleteTodo({ variables: { todoId: id, userId: user.id } }).then((res) => {
       if (res.data.deleteTodo.success) {
         let userUpdateTodoList = {
           ...user,

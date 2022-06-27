@@ -49,9 +49,9 @@ function ToDo() {
     if (!navigator.geolocation) {
       console.log("Geolocation API not supported by this browser.");
     } else {
-      console.log("Checking location...");
+      // console.log("Checking location...");
       navigator.geolocation.getCurrentPosition(success, error);
-      console.log("already success");
+      // console.log("already success");
     }
     function error() {
       console.log("Geolocation error!");
