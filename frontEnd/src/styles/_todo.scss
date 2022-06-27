@@ -147,10 +147,22 @@ abbr {
   font-weight: bold;
   color: white;
 }
+// here is our target
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
   background: #00a2ff;
   color: white;
+}
+.activityStyle {
+  color: rgba(255, 255, 255, 0);
+
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEevHzcB1ScG4i2ktGkPRTxwOAAg5aQKB2IqAFGMVGxIM54SoMsaHST2YR_9fTYGCEugw&usqp=CAU")
+    no-repeat;
+  background-size: 100% 100%;
+
+  background-position: center;
+  border: 1px inset #6f48eb;
+  border-radius: 5px;
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #f8f8fa;

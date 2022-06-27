@@ -80,6 +80,18 @@ function ToDo() {
       />
     );
   }
+  const tileClassNameStyle = ({ date, view }) => {
+    if (user.todoList.length > 0) {
+      let styleIt = user.todoList.map((val) => {
+        if (date.toDateString() === val.activityDate) {
+          return "activityStyle";
+        } else {
+          return null;
+        }
+      });
+      return styleIt;
+    }
+  };
 
   return (
     <div className="Container ">
@@ -117,8 +129,9 @@ function ToDo() {
         <Calendar
           onChange={onChange}
           value={value}
-          className={["c1", "c2"]}
+          // className={["c1", "c2"]}
           onClickDay={showModal}
+          tileClassName={tileClassNameStyle}
         />
         <TodoModal
           show={modalShow}
