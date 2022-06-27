@@ -5,13 +5,21 @@ import { Button, Modal } from "react-bootstrap";
 import AddTodoModal from "./AddTodoModal";
 import { MyContext } from "../../context/context";
 import { useMutation } from "@apollo/client";
-import { UPDATE_TODO } from "../../graphql/Mutations";
+import { DELETE_TODO, UPDATE_TODO } from "../../graphql/Mutations";
+import { GET_ONE_USER } from "../../graphql/Queries";
 function TodoModal(props) {
-  const { user } = useContext(MyContext);
+  const { user, setUser } = useContext(MyContext);
+
   const [modalShow1, setModalShow1] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
   const [updateTodoInput, setUpdateTodoInput] = useState();
-  const [updateTodo, { data, loading, error }] = useMutation(UPDATE_TODO);
+  const [updateTodo, { data, loading, error }] = useMutation(UPDATE_TODO, {
+    refetchQueries: {
+      query: GET_ONE_USER,
+      variables: { getOneUser: user.id },
+    },
+    awaitRefetchQueries: true,
+  });
 
   const updateTodoForm = (e, id) => {
     e.preventDefault();
@@ -55,10 +63,9 @@ function TodoModal(props) {
           showConfirmButton: false,
           timer: 1000,
         });
-        // return props.onHide();
+        return props.onHide();
       }
 
-      // props.onHide();
       updateTodo({
         variables: {
           updateTodoId: updateTodoInput,
@@ -68,10 +75,17 @@ function TodoModal(props) {
           activityDetails: activityDetails,
         },
       }).then((res) => {
-        console.log(res);
         if (res.data) {
-          console.log(res.data);
-          // we need to use sweetalert2 here after updating successfully
+          setEditBtn(!editBtn);
+          setUpdateTodoInput(id);
+
+          Swal.fire({
+            position: "top",
+            icon: "success",
+            title: "update successfully",
+            showConfirmButton: false,
+            timer: 1000,
+          });
         }
       });
     } else {
@@ -81,13 +95,63 @@ function TodoModal(props) {
       return;
     }
   };
-
+  if (error) {
+    Swal.fire({
+      position: "top",
+      icon: "error",
+      title: "something went wrong",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }
   // /////////
   const addTodoBtn = () => {
     setModalShow1(true);
     props.onHide();
   };
   // /////////
+
+  const [deleteTodo, { data1, loading1, error1 }] = useMutation(DELETE_TODO, {
+    refetchQueries: [
+      {
+        query: GET_ONE_USER,
+        variables: { getOneUserId: user.id },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
+  const deleteOneTodo = (id) => {
+    deleteTodo({ variables: { todoId: id, userId: user.id } }).then((res) => {
+      if (res.data.deleteTodo.success) {
+        let userUpdateTodoList = {
+          ...user,
+          todoList: user.todoList.filter((todo) => {
+            return todo.id !== id;
+          }),
+        };
+
+        setUser(userUpdateTodoList);
+
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "update successfully",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+      if (error1) {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: "something went wrong",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+    });
+  };
+
   let arr = [];
   if (user.todoList) {
     for (let i = 0; i < user.todoList.length; i++) {
@@ -97,6 +161,7 @@ function TodoModal(props) {
       }
     }
   }
+
   // //////
   return (
     <div>
@@ -204,6 +269,7 @@ function TodoModal(props) {
                         type="button"
                         value="Delete"
                         className="btn btn-danger ms-4"
+                        onClick={() => deleteOneTodo(todo.id)}
                       />
                     </div>
                   )}

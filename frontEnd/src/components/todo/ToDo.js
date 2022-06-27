@@ -14,17 +14,17 @@ function ToDo() {
     useContext(MyContext);
 
   const [value, onChange] = useState(new Date());
+
   const [modalShow, setModalShow] = useState(false);
-  const { data, loading, error } = useQuery(GET_ONE_USER, {
-    variables: { getOneUser: user.id },
+  const { loading, error, data } = useQuery(GET_ONE_USER, {
+    variables: { getOneUserId: user.id },
   });
-  if (loading) {
-    console.log("...is loading");
-  }
-  if (data) {
-    // console.log(data.getOneUser);
-    setUser(data.getOneUser);
-  }
+
+  setTimeout(() => {
+    if (data) {
+      setUser(data.getOneUser);
+    }
+  }, 100);
 
   let today = new Date().getHours();
   let time = "";
@@ -49,9 +49,9 @@ function ToDo() {
     if (!navigator.geolocation) {
       console.log("Geolocation API not supported by this browser.");
     } else {
-      console.log("Checking location...");
+      // console.log("Checking location...");
       navigator.geolocation.getCurrentPosition(success, error);
-      console.log("already success");
+      // console.log("already success");
     }
     function error() {
       console.log("Geolocation error!");
@@ -64,11 +64,21 @@ function ToDo() {
         .then((data) => (data ? setUserWeatherData(data) : console.log(data)));
     }
   }
+
   useEffect(() => {
     getLocation();
   }, []);
   function showModal() {
     setModalShow(true);
+  }
+  if (loading) {
+    return (
+      <img
+        src="https://css-tricks.com/wp-content/uploads/2011/02/spinnnnnn.gif"
+        loading="lazy"
+        alt="img spinner"
+      />
+    );
   }
 
   return (
@@ -82,16 +92,18 @@ function ToDo() {
         <LoginSignUp />
       </div>
       <div className="degreesDiv mt-4">
-        <div className="DegreesIcon">
-          <img
-            src={`http://openweathermap.org/img/wn/${userWeatherData?.weather[0].icon}@2x.png`}
-            alt=""
-          />
-          <div>
-            <h2>{parseInt(userWeatherData?.main.temp)} C</h2>
-            <h4>{userWeatherData?.name}</h4>
+        {userWeatherData && (
+          <div className="DegreesIcon">
+            <img
+              src={`http://openweathermap.org/img/wn/${userWeatherData?.weather[0].icon}@2x.png`}
+              alt="img"
+            />
+            <div>
+              <h2>{parseInt(userWeatherData?.main.temp)} C</h2>
+              <h4>{userWeatherData?.name}</h4>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="CalendarClock">
           <CalendarClock />

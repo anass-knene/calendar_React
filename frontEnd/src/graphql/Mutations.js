@@ -59,6 +59,9 @@ export const ADD_TODO = gql`
     ) {
       activityDate
       activityName
+      startTime
+      endTime
+      activityDetails
     }
   }
 `;
@@ -84,6 +87,14 @@ export const UPDATE_TODO = gql`
       endTime
       activityDetails
       id
+    }
+  }
+`;
+
+export const DELETE_TODO = gql`
+  mutation DeleteTodo($todoId: ID!, $userId: ID!) {
+    deleteTodo(todoId: $todoId, userId: $userId) {
+      success
     }
   }
 `;

@@ -11,7 +11,8 @@ const TodoCollection = require("../models/todoSchema");
 const resolvers = {
   Query: {
     async getOneUser(_, { id }) {
-      const getUser = await UserCollection.findById(id);
+      const getUser = await UserCollection.findById(id).populate("todoList");
+
       if (getUser) {
         return getUser;
       } else {
@@ -136,6 +137,36 @@ const resolvers = {
         }
       } else {
         throw new Error("you have not authenticated");
+      }
+    },
+    async deleteTodo(_, args, { req }) {
+      const token = req.headers["token"];
+      if (token) {
+        const decode = jwt.verify(token, "secret-key");
+
+        if (decode) {
+          const user = await UserCollection.findById(args.userId);
+
+          if (user) {
+            await TodoCollection.findByIdAndDelete(args.todoId);
+            user.todoList.filter((item) => item.id === args.todoId);
+            let findObjectId = user.todoList.map((item) => {
+              return item.toString();
+            });
+
+            let filterObjectId = findObjectId.filter(
+              (item) => item !== args.todoId
+            );
+
+            user.todoList = [...(user.todoList = filterObjectId)];
+
+            await user.save();
+          }
+
+          return { success: true };
+        }
+      } else {
+        throw new ApolloError("yoh have to login", 403);
       }
     },
   },
