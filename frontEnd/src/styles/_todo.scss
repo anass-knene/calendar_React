@@ -153,6 +153,26 @@ abbr {
   background: #00a2ff;
   color: white;
 }
+.tempLocation {
+  h2 {
+    color: #0033ff;
+    font-weight: bold;
+  }
+  h4 {
+    font-weight: bold;
+  }
+}
+.Activities {
+  p {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+    span {
+      color: #0015ff;
+    }
+  }
+}
+
 .activityStyle {
   color: rgba(255, 255, 255, 0);
 
@@ -163,6 +183,9 @@ abbr {
   background-position: center;
   border: 1px inset #6f48eb;
   border-radius: 5px;
+}
+.noActivityStyle {
+  display: block;
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #f8f8fa;

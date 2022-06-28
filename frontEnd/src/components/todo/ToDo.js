@@ -16,6 +16,7 @@ function ToDo() {
   const [value, onChange] = useState(new Date());
 
   const [modalShow, setModalShow] = useState(false);
+
   const { loading, error, data } = useQuery(GET_ONE_USER, {
     variables: { getOneUserId: user.id },
   });
@@ -25,6 +26,17 @@ function ToDo() {
       setUser(data.getOneUser);
     }
   }, 100);
+
+  // activities number code
+  const findMatchDate = user?.todoList?.filter(
+    (item) => item.activityDate === value.toDateString()
+  );
+  let num;
+  if (findMatchDate) {
+    const activityNum = findMatchDate.length;
+    num = activityNum;
+  }
+  // ///////
 
   let today = new Date().getHours();
   let time = "";
@@ -81,15 +93,17 @@ function ToDo() {
     );
   }
   const tileClassNameStyle = ({ date, view }) => {
-    if (user.todoList.length > 0) {
-      let styleIt = user.todoList.map((val) => {
-        if (date.toDateString() === val.activityDate) {
-          return "activityStyle";
-        } else {
-          return null;
-        }
-      });
-      return styleIt;
+    if (user) {
+      if (user?.todoList?.length > 0) {
+        let styleIt = user.todoList.map((val) => {
+          if (date.toDateString() === val.activityDate) {
+            return "activityStyle";
+          } else {
+            return "noActivityStyle";
+          }
+        });
+        return styleIt;
+      }
     }
   };
 
@@ -110,7 +124,7 @@ function ToDo() {
               src={`http://openweathermap.org/img/wn/${userWeatherData?.weather[0].icon}@2x.png`}
               alt="img"
             />
-            <div>
+            <div className="tempLocation">
               <h2>{parseInt(userWeatherData?.main.temp)} C</h2>
               <h4>{userWeatherData?.name}</h4>
             </div>
@@ -121,8 +135,10 @@ function ToDo() {
           <CalendarClock />
         </div>
         <div className="Activities">
-          <p>activities </p>
-          <p>number/number</p>
+          <p>Activities </p>
+          <p>
+            <span>{num}</span> Activity
+          </p>
         </div>
       </div>
       <div className="daysDiv">
