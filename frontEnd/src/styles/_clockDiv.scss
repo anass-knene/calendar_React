@@ -1,0 +1,13 @@
+.ClockContainer {
+  //   outline: solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  word-wrap: break-word;
+  h1 {
+    margin: 40px 100px 0px 10px;
+    background-color: aqua;
+    padding: 15px;
+  }
+}

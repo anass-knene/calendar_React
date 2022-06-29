@@ -117,7 +117,7 @@ function ToDo() {
 
         <LoginSignUp />
       </div>
-      <div className="degreesDiv mt-4">
+      <div className="degreesDiv ">
         {userWeatherData && (
           <div className="DegreesIcon">
             <img
@@ -134,7 +134,7 @@ function ToDo() {
         <div className="CalendarClock">
           <CalendarClock />
         </div>
-        <div className="Activities">
+        <div className="Activities me-3">
           <p>Activities </p>
           <p>
             <span>{num}</span> Activity
