@@ -61,7 +61,7 @@ function AddTodoModal(props) {
     <div className="addTodoModalContainer">
       <Modal
         {...props}
-        size="xl"
+        size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
