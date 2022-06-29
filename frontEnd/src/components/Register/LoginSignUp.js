@@ -4,11 +4,17 @@ import { MyContext } from "../../context/context";
 import { HiOutlineLogin } from "react-icons/hi";
 
 function LoginSignUp() {
-  const { isUserLogin, setIsUserLogin, LoginInputStyle, setLoginInputStyle } =
-    useContext(MyContext);
+  const {
+    isUserLogin,
+    setIsUserLogin,
+    LoginInputStyle,
+    setLoginInputStyle,
+    setUser,
+  } = useContext(MyContext);
 
   function logoutUserFunction() {
     localStorage.removeItem("token");
+    setUser({});
     setIsUserLogin(false);
   }
 

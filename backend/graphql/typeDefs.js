@@ -62,11 +62,6 @@ const typeDefs = gql`
     ): TodoType
 
     deleteTodo(todoId: ID!, userId: ID!): BooleanType
-    #     updateUser(
-    #   	  id: ID!
-    #   	   firstName: String
-    #   	    lastName: String
-    #   	    password: String):UserType
   }
 `;
 

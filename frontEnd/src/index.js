@@ -11,7 +11,6 @@ import {
   HttpLink,
 } from "@apollo/client";
 import { onError } from "apollo-link-error";
-import Swal from "sweetalert2";
 
 const middlewareLink = new ApolloLink((operation, forward) => {
   operation.setContext({
@@ -23,26 +22,10 @@ const middlewareLink = new ApolloLink((operation, forward) => {
 });
 onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) =>
-      Swal.fire({
-        position: "top",
-        icon: "error",
-        title: `${message}`,
-        showConfirmButton: false,
-        timer: 2000,
-        customClass: "swal-width",
-      })
-    );
+    graphQLErrors.map(({ message, locations, path }) => console.log(message));
   }
   if (networkError) {
-    Swal.fire({
-      position: "top",
-      icon: "error",
-      title: networkError,
-      showConfirmButton: false,
-      timer: 2000,
-      customClass: "swal-width",
-    });
+    console.log(networkError);
   }
 });
 const client = new ApolloClient({
