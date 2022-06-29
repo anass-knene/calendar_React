@@ -21,6 +21,10 @@ const server = new ApolloServer({
   },
   cors: true,
 });
+app.use(express.static(__dirname + "/build"));
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/build/index.html");
+});
 
 server.start().then(() => {
   server.applyMiddleware({ app });
