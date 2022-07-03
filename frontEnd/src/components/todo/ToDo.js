@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
 import { CalendarClock } from "./CalendarClock";
-import "react-clock/dist/Clock.css";
 
 import TodoModal from "./TodoModal";
 import LoginSignUp from "../Register/LoginSignUp";
@@ -110,11 +109,10 @@ function ToDo() {
   return (
     <div className="Container ">
       <div className="HeaderContainer pt-4">
-        <h1 className="ms-1">
-          Good {time}
+        <div className="ms-4">
+          <p>Good {time}</p>
           {isUserLogin ? <span> {user.firstName.toUpperCase()}</span> : ""}
-        </h1>
-
+        </div>
         <LoginSignUp />
       </div>
       <div className="degreesDiv ">
@@ -134,18 +132,26 @@ function ToDo() {
         <div className="CalendarClock">
           <CalendarClock />
         </div>
-        <div className="Activities me-3">
-          <p>Activities </p>
-          <p>
-            <span>{num}</span> Activity
-          </p>
-        </div>
+        {isUserLogin ? (
+          <div className="Activities me-3 ">
+            <p>Activities </p>
+            <p>
+              <span>{num}</span> Activity
+            </p>
+          </div>
+        ) : (
+          <div className="Activities me-3">
+            <p>login for </p>
+            <p>
+              <span>Activities</span>
+            </p>
+          </div>
+        )}
       </div>
       <div className="daysDiv">
         <Calendar
           onChange={onChange}
           value={value}
-          // className={["c1", "c2"]}
           onClickDay={showModal}
           tileClassName={tileClassNameStyle}
         />

@@ -14,8 +14,8 @@ function LoginSignUp() {
 
   function logoutUserFunction() {
     localStorage.removeItem("token");
-    setUser({});
     setIsUserLogin(false);
+    setUser({});
   }
 
   return (
@@ -29,7 +29,7 @@ function LoginSignUp() {
       ) : (
         <input
           type="button"
-          value="Logout"
+          value="Sign out"
           className="logoutBtn"
           onClick={logoutUserFunction}
         />

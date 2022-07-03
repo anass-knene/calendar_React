@@ -4,7 +4,7 @@ import Login from "./components/Register/Login";
 import Signup from "./components/Register/Signup";
 import ToDo from "./components/todo/ToDo";
 import Container from "./context/Container";
-
+import "react-clock/dist/Clock.css";
 import "./styles/App.scss";
 
 function App() {

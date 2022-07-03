@@ -7,20 +7,18 @@
     background-color: #00a2ff28;
     box-shadow: 0px 10px 10px #00a2ff;
     height: 100px;
-    h1 {
-      text-shadow: 0px 0px 5px rgb(154, 36, 36);
-      margin-left: 8px !important;
-      span {
-        color: #00a2ff;
-      }
+    font-weight: bold;
+
+    span {
+      color: #00a2ff;
     }
   }
   .degreesDiv {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // margin-top: 100px;
-    height: 200px;
+
+    height: 260px;
     outline: #00a2ff solid;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -29,10 +27,13 @@
     }
     .react-clock {
       margin: -100px 100px 0px 0px;
-      background-color: white;
+      background-color: #ffffff;
       border-radius: 50%;
+      border: 5px solid #00a2ff;
+      box-shadow: 0 0 20px 5px #00a2ff;
     }
   }
+
   .daysDiv {
     width: 100%;
     display: flex;
@@ -61,6 +62,7 @@
   text-align: center;
   padding-bottom: 30px;
   border-radius: 30px;
+  box-shadow: 0px 10px 10px #00a2ff;
 }
 .react-calendar__navigation button {
   // سطر اختيار السنين والاشهر
