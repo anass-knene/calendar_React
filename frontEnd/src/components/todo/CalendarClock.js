@@ -16,8 +16,8 @@ export function CalendarClock() {
     <div className="ClockContainer">
       <Clock value={value} hourHandWidth={4} />
       <div className="ClockDateDiv">
-        <h1>{value.toLocaleString().slice(10)}</h1>
-        <h2>{value.toLocaleString().slice(0, 8)}</h2>
+        <h1>{value.toLocaleString().slice(11)}</h1>
+        <h2>{value.toLocaleString().slice(0, 10)}</h2>
       </div>
     </div>
   );
