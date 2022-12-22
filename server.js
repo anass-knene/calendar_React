@@ -13,6 +13,34 @@ mongoose
   .then(() => console.log("successfully connect to the database Atlas"))
   .catch((err) => console.log(`error connecting to the database Atlas ${err}`));
 
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   context: (context) => {
+//     return context;
+//   },
+//   cors: true,
+// });
+// app.use(express.static(__dirname + "/build"));
+// app.get("/", function (req, res) {
+//   res.sendFile(__dirname + "/build/index.html");
+// });
+
+// server.start().then(() => {
+//   server.applyMiddleware({ app });
+//   app.listen(PORT, () =>
+//     console.log(`🚀 apolloServer Server ready at  ${PORT}`)
+//   );
+// });
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(mongoURL);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -25,10 +53,11 @@ app.use(express.static(__dirname + "/build"));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/build/index.html");
 });
-
-server.start().then(() => {
-  server.applyMiddleware({ app });
-  app.listen(PORT, () =>
-    console.log(`🚀 apolloServer Server ready at  ${PORT}`)
-  );
+connectDB().then(() => {
+  server.start().then(() => {
+    server.applyMiddleware({ app });
+    app.listen(PORT, () =>
+      console.log(`🚀 apolloServer Server ready at  ${PORT}`)
+    );
+  });
 });
