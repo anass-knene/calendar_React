@@ -32,7 +32,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: ApolloLink.from([
     middlewareLink,
-    new HttpLink({ uri: "http://localhost:5000/graphql" }),
+    new HttpLink({ uri: "https://real-puce-spider-veil.cyclic.app/graphql" }),
   ]),
 });
 
