@@ -12,7 +12,8 @@ function Container({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/graphql", {
+    // fetch("http://localhost:5000/graphql", {
+    fetch("https://real-puce-spider-veil.cyclic.app/graphql", {
       method: "POST",
       headers: {
         "content-type": "application/json",
