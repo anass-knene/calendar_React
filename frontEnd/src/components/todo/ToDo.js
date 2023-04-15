@@ -1,22 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { MyContext } from "../../context/context";
-import { CalendarClock } from "./CalendarClock";
+
+import "react-clock/dist/Clock.css";
 
 import TodoModal from "./TodoModal";
 import LoginSignUp from "../Register/LoginSignUp";
 import { useQuery } from "@apollo/client";
 import { GET_ONE_USER } from "../../graphql/Queries";
-
+import Clock from "react-clock";
 function ToDo() {
   const { user, setUser, isUserLogin, userWeatherData, setUserWeatherData } =
     useContext(MyContext);
-
+  const [valueClock, setValueClock] = useState(new Date());
   const [value, onChange] = useState(new Date());
 
   const [modalShow, setModalShow] = useState(false);
 
-  const { loading, error, data } = useQuery(GET_ONE_USER, {
+  const { loading, data } = useQuery(GET_ONE_USER, {
     variables: { getOneUserId: user.id },
   });
 
@@ -78,6 +79,10 @@ function ToDo() {
 
   useEffect(() => {
     getLocation();
+    const interval = setInterval(() => setValueClock(new Date()), 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
   function showModal() {
     setModalShow(true);
@@ -123,24 +128,24 @@ function ToDo() {
               alt="img"
             />
             <div className="tempLocation">
-              <h2>{parseInt(userWeatherData?.main.temp)} C</h2>
-              <h4>{userWeatherData?.name}</h4>
+              <p>{parseInt(userWeatherData?.main.temp)} C</p>
+              <p>{userWeatherData?.name}</p>
             </div>
           </div>
         )}
 
         <div className="CalendarClock">
-          <CalendarClock />
+          <Clock value={valueClock} size={130} />
         </div>
         {isUserLogin ? (
-          <div className="Activities me-3 ">
+          <div className="Activities  ">
             <p>Activities </p>
             <p>
               <span>{num}</span> Activity
             </p>
           </div>
         ) : (
-          <div className="Activities me-3">
+          <div className="Activities ">
             <p>login for </p>
             <p>
               <span>Activities</span>
@@ -152,7 +157,7 @@ function ToDo() {
         <Calendar
           onChange={onChange}
           value={value}
-          onClickDay={showModal}
+          onClickDay={isUserLogin && showModal}
           tileClassName={tileClassNameStyle}
         />
         <TodoModal

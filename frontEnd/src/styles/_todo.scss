@@ -17,20 +17,46 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    // padding: 0 10px;
 
-    height: 260px;
-    outline: #00a2ff solid;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     .DegreesIcon {
+      text-align: center;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+      img {
+        width: 50px;
+      }
+      .tempLocation {
+        p {
+          color: #0033ff;
+          font-weight: bold;
+        }
+      }
     }
-    .react-clock {
-      margin: -100px 100px 0px 0px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      border: 5px solid #00a2ff;
-      box-shadow: 0 0 20px 5px #00a2ff;
+    .CalendarClock {
+      .react-clock {
+        background-color: #00a2ff28;
+
+        border-radius: 50%;
+      }
+    }
+    .Activities {
+      padding-right: 8px;
+
+      p {
+        color: black;
+        font-weight: bold;
+        font-size: large;
+        span {
+          color: #0015ff;
+        }
+      }
     }
   }
 
@@ -160,25 +186,7 @@ abbr {
   background: #00a2ff;
   color: white;
 }
-.tempLocation {
-  h2 {
-    color: #0033ff;
-    font-weight: bold;
-  }
-  h4 {
-    font-weight: bold;
-  }
-}
-.Activities {
-  p {
-    color: black;
-    font-weight: bold;
-    font-size: large;
-    span {
-      color: #0015ff;
-    }
-  }
-}
+
 .activityStyle {
   position: relative;
 

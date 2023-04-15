@@ -46,16 +46,6 @@ function AddTodoModal(props) {
       props.onHide();
     });
   };
-  if (error) {
-    Swal.fire({
-      position: "top",
-      icon: "error",
-      title: "Something Went Wrong ",
-      showConfirmButton: false,
-      timer: 2000,
-      customClass: "swal-width",
-    });
-  }
 
   return (
     <div className="addTodoModalContainer">

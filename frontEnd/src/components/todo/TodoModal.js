@@ -13,7 +13,7 @@ function TodoModal(props) {
   const [modalShow1, setModalShow1] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
   const [updateTodoInput, setUpdateTodoInput] = useState();
-  const [updateTodo, { data, loading, error }] = useMutation(UPDATE_TODO, {
+  const [updateTodo, { error }] = useMutation(UPDATE_TODO, {
     refetchQueries: {
       query: GET_ONE_USER,
       variables: { getOneUser: user.id },
@@ -111,7 +111,7 @@ function TodoModal(props) {
   };
   // /////////
 
-  const [deleteTodo, { data1, loading1, error1 }] = useMutation(DELETE_TODO, {
+  const [deleteTodo, { error1 }] = useMutation(DELETE_TODO, {
     refetchQueries: [
       {
         query: GET_ONE_USER,
